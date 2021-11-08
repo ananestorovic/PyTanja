@@ -106,10 +106,17 @@ class Aki(Agent):
                     possible.append(game_map[row][col + 1])
 
             if not possible:
+                path.pop()
                 elem = stack.pop()
+
+                while elem in visited:
+                    elem = stack.pop()
+                    path.pop()
+
                 row = elem.row
                 col = elem.col
-                path.pop()
+                visited.append((elem.row, elem.col))
+
 
             else:
                 possible.sort(
