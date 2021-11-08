@@ -110,6 +110,9 @@ class Aki(Agent):
                 elem = stack.pop()
 
                 while elem in visited:
+                    if not stack:
+                        print("There is no solution for the given parameters")
+                        return
                     elem = stack.pop()
                     path.pop()
 
