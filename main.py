@@ -1,16 +1,14 @@
-# This is a sample Python script.
+import traceback
+import pygame
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from game import Game
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+try:
+    pygame.init()
+    g = Game()
+    g.run()
+except (Exception,):
+    traceback.print_exc()
+    input()
+finally:
+    pygame.quit()
