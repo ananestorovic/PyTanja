@@ -1,3 +1,5 @@
+import random
+
 import pygame
 import os
 import config
@@ -246,7 +248,83 @@ class Jocke(Agent):
 
         return path
 
-# class Draza(Agent):
+class Draza(Agent):
+
+    def __init__(self, row, col, file_name):
+        super().__init__(row, col, file_name)
+
+
+    def get_agent_path(self, game_map, goal):
+
+        queue = []
+        current_list=[game_map[self.row][self.col]]
+        possible = []
+        path = []
+
+
+        row = self.row
+        col = self.col
+
+        visited = [(row, col)]
+
+        flag = True
+
+        while flag:
+
+            if row == goal[0] and col == goal[1]:
+                break
+
+            if row > 0:
+                example = (row - 1, col)
+                if example not in visited:
+                    possible.append(game_map[row - 1][col])
+            if col > 0:
+                example = (row, col - 1)
+                if example not in visited:
+                    possible.append(game_map[row][col - 1])
+            if row < (len(game_map) - 1):
+                example = (row + 1, col)
+                if example not in visited:
+                    possible.append(game_map[row + 1][col])
+            if col < (len(game_map[0]) - 1):
+                example = (row, col + 1)
+                if example not in visited:
+                    possible.append(game_map[row][col + 1])
+
+            if not possible:
+                current_list = queue.pop(0)
+                elem = current_list[-1]
+                row = elem.row
+                col = elem.col
+                visited.append((row, col))
+
+
+            else:
+
+                helper_list = current_list.copy()
+                for i in possible:
+                    helper_list.append(i)
+                    queue.append(helper_list)  ##meni su liste kao jedan element, kao parcijalna putanja
+                    helper_list = current_list.copy()
+
+                possible = []
+
+                queue.sort(key = lambda l: (sum(map(lambda tile: tile.cost(),l)), len(l), random.random()))
+
+                current_list=queue.pop(0)
+                elem=current_list[-1] ##citam zadnji element
+                row=elem.row
+                col=elem.col
+                visited.append((row, col))
+
+            if not queue:
+                flag = False
+
+        path=current_list
+        return path
+
+
+
 
 
 class Tile(BaseSprite):
