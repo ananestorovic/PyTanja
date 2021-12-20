@@ -1,4 +1,4 @@
-PyStolovina is a graphical simulation of a sequential game written in a programming languagePython. <br>
+PyStolovina is a graphical simulation of a sequential game written in a programming language Python. <br>
 The main window of the application shows a two-dimensional map of the fields on which agents move
 one ours and at least one opponent agent.
 
